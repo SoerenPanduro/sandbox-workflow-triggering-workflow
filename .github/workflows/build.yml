@@ -13,20 +13,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
       - name: Prepare artifact values
         run: |
           ARTIFACTS_SHA=$(git rev-parse HEAD)
           echo "Artifact SHA: $ARTIFACTS_SHA"
-          echo "Artifact dir: $ARTIFACTS_DIR"
           BUILD_ARTIFACTS=BuildArtifacts_${ARTIFACTS_SHA}
-          echo "ARTIFACTS_DIR=$ARTIFACTS_DIR" >> $GITHUB_ENV
           echo "ARTIFACTS_SHA=$ARTIFACTS_SHA" >> $GITHUB_ENV
 
       - name: Upload a Build Artifact
@@ -36,6 +27,7 @@ jobs:
           path: 
             ./*.txt
           retention-days: 3
+
   can_use_artifact:
     runs-on: ubuntu-latest
     needs: build
@@ -45,28 +37,14 @@ jobs:
 
       - name: Download a Build Artifact
         uses: actions/download-artifact@v4.1.1
-#        with:
-    # Name of the artifact to download. If unspecified, all artifacts for the run are downloaded.
-#    name: # optional
-    # Destination path. Supports basic tilde expansion. Defaults to $GITHUB_WORKSPACE
-#         path: ./arts
-    # A glob pattern matching the artifacts that should be downloaded. Ignored if name is specified.
-#    pattern: # optional
-    # When multiple artifacts are matched, this changes the behavior of the destination directories. If true, the downloaded artifacts will be in the same directory specified by path. If false, the downloaded artifacts will be extracted into individual named directories within the specified path.
-#    merge-multiple: # optional, default is false
-    # The GitHub token used to authenticate with the GitHub API. This is required when downloading artifacts from a different repository or from a different workflow run. If this is not specified, the action will attempt to download artifacts from the current repository and the current workflow run.
-#    github-token: # optional
-    # The repository owner and the repository name joined together by "/". If github-token is specified, this is the repository that artifacts will be downloaded from.
-#    repository: # optional, default is ${{ github.repository }}
-    # The id of the workflow run where the desired download artifact was uploaded from. If github-token is specified, this is the run that artifacts will be downloaded from.
-#    run-id: # optional, default is ${{ github.run_id }}
-          
 
-      - name: What do we have?
+      - name: List files in Repository including Artifact(s)
         run: |
-          ls -R
           ARTIFACTS_SHA=$(git rev-parse HEAD)
-          echo "Expected artifacts folder is: Artifacts_$ARTIFACTS_SHA"
+          echo "Files:"
+          ls -R
+          echo "Expected artifacts folder is: Artifacts_$ARTIFACTS_SHA - files:"
           ls Artifacts_${ARTIFACTS_SHA}
+          echo "Renaming artifacts folder to static name:"
           mv Artifacts_${ARTIFACTS_SHA} artifacts
           ls
