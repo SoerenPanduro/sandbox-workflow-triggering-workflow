@@ -36,4 +36,5 @@ jobs:
     - name: What triggered this workflow?
       run: |
         echo "github.event.workflow_run data: ${{github.event.workflow_run }}"
+        echo "github.event.workflow_run.id data: ${{github.event.workflow_run.id }}"
         
