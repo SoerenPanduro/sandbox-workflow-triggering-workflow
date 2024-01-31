@@ -24,15 +24,14 @@ jobs:
         ARTIFACTS_SHA=$(git rev-parse HEAD)
         echo "Expected artifacts folder is: Artifacts_$ARTIFACTS_SHA"
         echo "ARTIFACTS_SHA=$ARTIFACTS_SHA" >> $GITHUB_ENV
-        echo "Artifact was made from run ID: ${{github.event.workflow_run.id }}"
-        echo "ARTIFACT_RUN_ID=${{ github.event.workflow_run.id }}" >> $GITHUB_ENV
+#        echo "Artifact was made from run ID: ${{github.event.workflow_run.id }}"
+#        echo "ARTIFACT_RUN_ID=${{ github.event.workflow_run.id }}" >> $GITHUB_ENV
     - name: Download the Build Artifact
       uses: actions/download-artifact@v4.1.1
       with:
-#        name: Artifacts_${{ env.ARTIFACTS_SHA }}
+#        name: Artifacts_${{ env.ARTIFACTS_SHA }} # If specified, files will be extracted to the root folder!
         github-token: ${{ secrets.GITHUB_TOKEN }} # ${{ secrets.GH_PAT }}  # optional
         run-id: ${{ github.event.workflow_run.id }}
-#        run-id: ${{ env.ARTIFACT_RUN_ID }}
 
     - name: Repository after download
       run: |
