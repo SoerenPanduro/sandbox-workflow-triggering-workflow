@@ -53,7 +53,7 @@ jobs:
 
       - name: What do we have?
         run: |
-          ls
+          ls -R
           
 
 
