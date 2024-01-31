@@ -1,0 +1,24 @@
+# This workflow will deploy a .NET project as a AWS Lambda API function
+
+name: Deploy Lambda on DEV
+on: 
+  workflow_run:
+    workflows: ["Build"]
+    types:
+      - completed
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+    - name: What do we have of environments?
+      run: |
+        ls -R
+        ARTIFACTS_SHA=$(git rev-parse HEAD)
+        echo "Expected artifacts folder is: Artifacts_$ARTIFACTS_SHA"
+        
