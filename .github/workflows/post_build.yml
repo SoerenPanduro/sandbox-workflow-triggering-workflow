@@ -1,6 +1,4 @@
-# This workflow will deploy a .NET project as a AWS Lambda API function
-
-name: Deploy Lambda on DEV
+name: Post Build
 on: 
   workflow_run:
     workflows: ["Build"]
@@ -21,4 +19,11 @@ jobs:
         ls -R
         ARTIFACTS_SHA=$(git rev-parse HEAD)
         echo "Expected artifacts folder is: Artifacts_$ARTIFACTS_SHA"
+        echo "ARTIFACTS_SHA=$ARTIFACTS_SHA" >> $GITHUB_ENV
+    - name: Download the Build Artifact
+      uses: actions/download-artifact@v4.1.1
+      with:
+        name: Artifacts_${{ env.ARTIFACTS_SHA }}
+#        github-token: ${{ secrets.GH_PAT }}  # optional
+#        run-id: ??
         
