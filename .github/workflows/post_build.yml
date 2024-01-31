@@ -27,4 +27,8 @@ jobs:
         name: Artifacts_7a0f9ff24783dcca963ad3d483d62d52191281bd
         github-token: ${{ secrets.GITHUB_TOKEN }} # ${{ secrets.GH_PAT }}  # optional
         run-id: 7725542784 # 7725542784/artifacts/1208574191
+
+    - name: Repository after download
+      run: |
+        ls -R
         
