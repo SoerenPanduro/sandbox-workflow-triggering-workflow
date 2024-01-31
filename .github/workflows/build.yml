@@ -27,6 +27,7 @@ jobs:
           echo "Artifact dir: $ARTIFACTS_DIR"
           BUILD_ARTIFACTS=BuildArtifacts_${ARTIFACTS_SHA}
           echo "ARTIFACTS_DIR=$ARTIFACTS_DIR" >> $GITHUB_ENV
+          echo "ARTIFACTS_SHA=$ARTIFACTS_SHA" >> $GITHUB_ENV
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4.3.0
