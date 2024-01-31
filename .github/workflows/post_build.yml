@@ -33,4 +33,7 @@ jobs:
     - name: Repository after download
       run: |
         ls -R
+    - name: What triggered this workflow?
+      run: |
+        echo "github.event.workflow_run data: ${{github.event.workflow_run }}"
         
