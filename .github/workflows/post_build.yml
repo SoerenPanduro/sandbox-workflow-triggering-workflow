@@ -14,10 +14,6 @@ jobs:
         sparse-checkout: |
           nothing
         sparse-checkout-cone-mode: false  
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 6.0.x
     - name: Set up download environment
       run: |
         ls -R
@@ -36,8 +32,9 @@ jobs:
     - name: Repository after download
       run: |
         ls -R
+# Optionally - rename Artifacts_${{ env.ARTIFACTS_SHA }} to some static name - 
+#   mv Artifacts_${{ env.ARTIFACTS_SHA }} artifacts
     - name: What triggered this workflow?
       run: |
-        echo "github.event.workflow_run data: ${{github.event.workflow_run }}"
         echo "github.event.workflow_run.id data: ${{ github.event.workflow_run.id }}"
         
