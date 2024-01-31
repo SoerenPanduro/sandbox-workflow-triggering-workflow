@@ -9,10 +9,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v4 # Expect not to check out any files - but need the SHA info for later use
       with:
         sparse-checkout: |
           nothing
+        sparse-checkout-cone-mode: false  
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
