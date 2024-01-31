@@ -24,6 +24,6 @@ jobs:
       uses: actions/download-artifact@v4.1.1
       with:
         name: Artifacts_${{ env.ARTIFACTS_SHA }}
-#        github-token: ${{ secrets.GH_PAT }}  # optional
+        github-token: ${{ secrets.GH_PAT }}  # optional
 #        run-id: ??
         
