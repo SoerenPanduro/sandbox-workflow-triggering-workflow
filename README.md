@@ -22,9 +22,10 @@ or by prompting the user when executing the workflow manually (workflow_dispatch
 
 Scripts will after this be able to access the input variable by accessing the `${{ inputs.RUN_ID }}` value.  
 
-To find the `run_id` value from the build step in this example - go to the build actions log Avtions -> Build - and open the log, 
-from which you wish to use the artifact. Here you take the last part of the url - example: github.com/..../sandbox-workflow-triggering-workflow/actions/runs/7755342377 
-and use the last part of the path - `7755342377` for the `RUN_ID` prompt.  
+To find the `run_id` value from the build step in this example:  
+* Go to the build actions log Actions -> Build - and open the log, from which you wish to use the artifact.
+* Here you take the last part of the url - example: github.com/..../sandbox-workflow-triggering-workflow/actions/runs/7755342377
+  * and use the last part of the path - `7755342377` for the `RUN_ID` prompt.  
 
 **Downloading the artifact**:  
 When downloading the artifact from another workflow, the `actions/download-artifact@v4` - action, needs additional input:  
