@@ -5,6 +5,11 @@ on:
     types:
       - completed
   workflow_dispatch:
+    inputs:
+      RUN_ID:
+        type: text
+        required: true
+        description: Type in the Run ID from the Build step containing the artifact.
   
 jobs:
   test_get_artifact:
@@ -19,6 +24,16 @@ jobs:
     - name: Set up download environment
       run: |
         ls -R
+
+        if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]
+        then
+           echo "Getting run id from workflow_dispatch - input: ${{ inputs.RUN_ID }}"
+           echo "BUILD_RUN_ID=${{ inputs.RUN_ID }}" >> $GITHUB_ENV
+        else
+           echo "Getting run id from workflow_run: ${{ github.event.workflow_run.id }}"
+           echo "BUILD_RUN_ID=${{ github.event.workflow_run.id }}" >> $GITHUB_ENV
+        fi
+        
         ARTIFACTS_SHA=$(git rev-parse HEAD)
         echo "Expected artifacts folder is: Artifacts_$ARTIFACTS_SHA"
         echo "ARTIFACTS_SHA=$ARTIFACTS_SHA" >> $GITHUB_ENV
@@ -29,7 +44,8 @@ jobs:
       with:
 #        name: Artifacts_${{ env.ARTIFACTS_SHA }} # If specified, files will be extracted to the root folder!
         github-token: ${{ secrets.GITHUB_TOKEN }} # ${{ secrets.GH_PAT }}  # optional
-        run-id: ${{ github.event.workflow_run.id }}
+# Was:        run-id: ${{ github.event.workflow_run.id }}
+        run-id: ${{ env.BUILD_RUN_ID }}
 
     - name: Repository after download
       run: |
@@ -39,4 +55,5 @@ jobs:
     - name: What triggered this workflow?
       run: |
         echo "github.event.workflow_run.id data: ${{ github.event.workflow_run.id }}"
+
         
