@@ -9,7 +9,7 @@ on:
       RUN_ID:
         type: text
         required: true
-        description: Type in the Run ID from the Build step containing the artifact.
+        description: Type in the Run ID from the Build step creating the artifact.
   
 jobs:
   test_get_artifact:
@@ -34,7 +34,7 @@ jobs:
            echo "BUILD_RUN_ID=${{ github.event.workflow_run.id }}" >> $GITHUB_ENV
         fi
 
-        echo "Is it already here? ... $BUILD_RUN_ID / ${{ env.BUILD_RUN_ID }} ...
+        echo "Is it already here? ... $BUILD_RUN_ID / ${{ env.BUILD_RUN_ID }} ..."
         ARTIFACTS_SHA=$(git rev-parse HEAD)
         echo "Expected artifacts folder is: Artifacts_$ARTIFACTS_SHA"
         echo "ARTIFACTS_SHA=$ARTIFACTS_SHA" >> $GITHUB_ENV
