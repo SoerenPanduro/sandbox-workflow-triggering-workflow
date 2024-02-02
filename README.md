@@ -1,7 +1,7 @@
 ## Purpose  
 This repository is demonstrating "collaboration" between 2 Github Workflows.  
 
-The main thing demonstrated here is how to use an artifact in one workflow, created in another.  
+The main thing demonstrated here is how to use an artifact in one workflow, created by another.  
 
 ## Setup  
 in `.github/workflows` you find 2 files:  
