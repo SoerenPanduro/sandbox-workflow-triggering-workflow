@@ -33,7 +33,8 @@ jobs:
            echo "Getting run id from workflow_run: ${{ github.event.workflow_run.id }}"
            echo "BUILD_RUN_ID=${{ github.event.workflow_run.id }}" >> $GITHUB_ENV
         fi
-        
+
+        echo "Is it already here? ... $BUILD_RUN_ID / ${{ env.BUILD_RUN_ID }} ...
         ARTIFACTS_SHA=$(git rev-parse HEAD)
         echo "Expected artifacts folder is: Artifacts_$ARTIFACTS_SHA"
         echo "ARTIFACTS_SHA=$ARTIFACTS_SHA" >> $GITHUB_ENV
@@ -54,6 +55,11 @@ jobs:
 #   mv Artifacts_${{ env.ARTIFACTS_SHA }} artifacts
     - name: What triggered this workflow?
       run: |
-        echo "github.event.workflow_run.id data: ${{ github.event.workflow_run.id }}"
+        if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]
+        then
+           echo "Trigger: workflow_dispatch - with inputs.RUN_ID: ${{ inputs.RUN_ID }}"
+        else
+           echo "Trigger: workflow_run - with github.event.workflow_run.id data: ${{ github.event.workflow_run.id }}"
+        fi
 
         
