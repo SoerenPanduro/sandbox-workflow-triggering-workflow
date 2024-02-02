@@ -38,7 +38,8 @@ When downloading the artifact from another workflow, the `actions/download-artif
         run-id: ${{ env.BUILD_RUN_ID }}
 ```
 ... where `${{ env.BUILD_RUN_ID }}` is being set by a setup step, either fetching the value from `${{ github.event.workflow_run.id }}` or `${{ inputs.RUN_ID }}` 
-depending on which event triggered the workflow. Example:  
+depending on which event triggered the workflow.  
+Example:  
 ```
         if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]
         then
