@@ -4,6 +4,8 @@ on:
     workflows: ["Build"]
     types:
       - completed
+  workflow_dispatch:
+  
 jobs:
   test_get_artifact:
     runs-on: ubuntu-latest
