@@ -29,9 +29,14 @@ jobs:
         then
            echo "Getting run id from workflow_dispatch - input: ${{ inputs.RUN_ID }}"
            echo "BUILD_RUN_ID=${{ inputs.RUN_ID }}" >> $GITHUB_ENV
+           # If the value is needed in this Bash script, add the value to a Bash variable (as well)
+           #    BUILD_RUN_ID=${{ inputs.RUN_ID }}
+          
         else
            echo "Getting run id from workflow_run: ${{ github.event.workflow_run.id }}"
            echo "BUILD_RUN_ID=${{ github.event.workflow_run.id }}" >> $GITHUB_ENV
+           # If the value is needed in this Bash script, add the value to a Bash variable (as well)
+           #    BUILD_RUN_ID=${{ github.event.workflow_run.id }}
         fi
 
         echo "Is it already here? ... $BUILD_RUN_ID / ${{ env.BUILD_RUN_ID }} ..."
